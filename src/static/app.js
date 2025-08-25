@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (details.participants && details.participants.length > 0) {
           participantsHTML += `<ul class="participants-list">`;
           details.participants.forEach((p) => {
-            // assume participant is a simple string (name or email)
             const safeText = String(p)
               .replace(/&/g, "&amp;")
               .replace(/</g, "&lt;")
@@ -111,4 +110,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize app
   fetchActivities();
+});
 });
