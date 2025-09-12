@@ -105,7 +105,7 @@ section h3 {
   color: #2f2f2f;
 }
 
-.activity-card .participants-list li.empty {
+.activity-card .participants-list li.participants-empty {
   list-style: none;
   padding-left: 0;
   font-style: italic;

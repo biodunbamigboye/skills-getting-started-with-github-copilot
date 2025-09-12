@@ -7,7 +7,6 @@
   <title>Mergington High School Activities</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* ...existing styles... */
     .participants-section {
       margin-top: 0.75rem;
       padding: 0.6rem 0.8rem 0.7rem;
@@ -110,8 +109,6 @@
 
   <script src="app.js"></script>
   <script>
-    // ...existing code that fetches activities...
-
     function renderActivities(data) {
       const container = document.getElementById("activities"); // existing container
       container.innerHTML = "";
@@ -119,11 +116,10 @@
         const card = document.createElement("div");
         card.className = "activity-card";
         // ...maybe existing heading / base structure...
+        card.className = "activity-card";
         card.innerHTML = `
             <h3>${name}</h3>
             <p class="description">${info.description}</p>
-            <p class="schedule"><strong>Schedule:</strong> ${info.schedule}</p>
-            <p class="capacity"><strong>Capacity:</strong> ${info.participants.length}/${info.max_participants}</p>
             <div class="participants-section">
               <h4>Participants</h4>
               ${info.participants.length
