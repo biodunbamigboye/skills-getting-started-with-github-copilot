@@ -4,6 +4,49 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const messageDiv = document.getElementById("message");
 
+  // Inject styles for participants section (once)
+  (function injectStyles() {
+    if (document.getElementById("participants-styles")) return;
+    const style = document.createElement("style");
+    style.id = "participants-styles";
+    style.textContent = `
+      .participants-section {
+        margin-top: 0.75rem;
+        padding: 0.6rem 0.75rem 0.7rem;
+        border-top: 1px solid #e5e5e5;
+        background: linear-gradient(135deg,#fafafa,#f5f7fa);
+        border-radius: 6px;
+      }
+      .participants-section h5 {
+        margin: 0 0 0.45rem;
+        font-size: 0.75rem;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: #555;
+      }
+      .participants-list {
+        margin: 0;
+        padding-left: 1.05rem;
+        list-style: disc;
+        display: grid;
+        gap: 0.2rem;
+      }
+      .participants-list li {
+        font-size: 0.78rem;
+        line-height: 1.05rem;
+        color: #2f2f2f;
+      }
+      .participants-list li.empty {
+        list-style: none;
+        font-style: italic;
+        color: #7a7a7a;
+        padding-left: 0;
+      }
+    `;
+    document.head.appendChild(style);
+  })();
+
   // Function to fetch activities from API
   async function fetchActivities() {
     try {
@@ -26,6 +69,33 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
         `;
+
+        // New participants section
+        const participantsSection = document.createElement("div");
+        participantsSection.className = "participants-section";
+
+        const title = document.createElement("h5");
+        title.textContent = "Participants";
+        participantsSection.appendChild(title);
+
+        const list = document.createElement("ul");
+        list.className = "participants-list";
+
+        if (Array.isArray(details.participants) && details.participants.length) {
+          details.participants.forEach(p => {
+            const li = document.createElement("li");
+            li.textContent = p;
+            list.appendChild(li);
+          });
+        } else {
+          const li = document.createElement("li");
+          li.className = "empty";
+          li.textContent = "No participants yet";
+          list.appendChild(li);
+        }
+
+        participantsSection.appendChild(list);
+        activityCard.appendChild(participantsSection);
 
         activitiesList.appendChild(activityCard);
 
